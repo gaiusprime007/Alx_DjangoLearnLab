@@ -1,3 +1,7 @@
+# Import
+- >>> from bookshelf.models import Book
+
+
 ## Delete
 - >>> book.delete()
 
