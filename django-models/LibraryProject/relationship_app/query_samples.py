@@ -23,15 +23,7 @@ def setup_sample_data():
 
 
 
-#Query samples
-def get_books_by_author(author_name):
-    try:
-        books = Book.objects.filter(author__name = author_name)
-        print(f"Books by {author_name}:")
-        for book in books:
-            print(f" - {book.title}")
-    except Author.DoesNotExist:
-        print(f"No books found for author: {author_name}")
+
 
 
 def list_books_in_library(library_name):
@@ -42,6 +34,19 @@ def list_books_in_library(library_name):
             print(f"- {book.title} by {book.author.name}")
     except Library.DoesNotExist:
         print(f"No library found with name: {library_name}")
+
+        #Query samples
+def get_books_by_author(author_name):
+    try:
+        books = Book.objects.filter(author__name = author_name)
+        print(f"Books by {author_name}:")
+        for book in books:
+            print(f" - {book.title}")
+    except Author.DoesNotExist:
+        print(f"No books found for author: {author_name}")
+
+
+
 
 def get_librarians_in_library(library_name):
     try:
