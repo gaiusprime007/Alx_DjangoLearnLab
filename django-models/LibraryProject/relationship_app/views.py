@@ -3,13 +3,12 @@ from .models import Book
 from .models import Library
 from django.views.generic import DetailView
 from django.http import HttpResponse
-from django.contrib.auth import authenticate  
-from django.contrib.auth import login
-from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import redirect
 from django.contrib import messages
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LoginView
 
 # Create your views here.
 def book_list(request):
@@ -17,8 +16,8 @@ def book_list(request):
     return render(request, 'relationship_app/list_books.html', {'books': books})
 
 
-def test_view(request):
-    return HttpResponse("Test URL is working!")
+# def test_view(request):
+#     return HttpResponse("Test URL is working!")
 
 
 class LibraryDetailView(DetailView):
@@ -29,40 +28,48 @@ class LibraryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context =super().get_context_data(**kwargs)
         return context
-    # AUTHENTICATION AND AUTHORIZATION
-   
-   
-   
-   
-   
-def register_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Registration successful!')
-            return redirect('login')
-    else:
-        form =  UserCreationForm()
-    return render(request, 'relationship_app/register.html', {'form': form})
-
-
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data = request.POST)
-        if form.is_valid():
-            username = form.get_user()
-            login(request, username)
-            messages.success(request, 'Login successful!')
-            return redirect('book_list')
-        else:
-            messages.error(request, 'Invalid username or password.')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'relationship_app/login.html', {'form': form})
-        
     
-def logout_view(request):
-    logout(request)
-    messages.success(request, 'You have been logged out.')
-    return render(request, 'relationship_app/logout.html')
+
+
+    # AUTHENTICATION AND AUTHORIZATION
+
+class RegisterView(FormView):
+    form_class = UserCreationForm
+    template_name = 'relationship_app/register.html'
+    success_url = reverse_lazy('login')
+
+    
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, 'Registration successful!')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Registration failed. Please correct the errors below')
+        return super().form_invalid(form)
+
+
+
+
+# class RegisterView(RegisterView):
+
+class LoginView(LoginView):
+    template_name = 'relationship_app/login.html'
+    redirect_authenticated_user = True
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Login successful!')
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, 'Invalid username or password')
+        return super().form_invalid(form)
+
+        
+class LogoutView(LogoutView):
+    template_name = 'relationship_app/logout.html'
+    reverse_lazy = 'login'
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.success(request, 'You have been logged out successfully.')
+        return super().dispatch(request, *args, **kwargs)    
