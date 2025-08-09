@@ -19,14 +19,14 @@ from . import views
 from .views import LoginView
 from .views import LogoutView
 from .views import RegisterView
-from django.http import HttpResponse
+
 
 urlpatterns = [
     path('books/', views.book_list, name='book_list'),
     path('library/<int:pk>/', views.LibraryDetailView.as_view(), name='library_detail'),
 
     #authentication and authorization
-    path('login-alt/', LoginView.as_view(template_name = "relationship_app/login.html"), name='login'),
-    path('logout/',  LogoutView.as_view(template_name = "relationship_app/logout.html"), name='logout'),
-    path('register/', RegisterView.as_view(template_name ="relationship_app/register.html"), name='register'),
+    path('login-alt/', LoginView.as_view(template_name="relationship_app/login.html"), name='login'),
+    path('logout/',  LogoutView.as_view(template_name="relationship_app/logout.html"), name='logout'),
+    path('register/', RegisterView.as_view(template_name="relationship_app/register.html"), name='register'),
 ]
