@@ -27,7 +27,7 @@ def book_list(request):
 
 
 ## RESTRICTIONS SETTINGS
-@method_decorator(permission_required('relationship_app.add_book', raise_exception=True), name='dispatch')
+@method_decorator(permission_required('relationship_app.can_add_book', raise_exception=True), name='dispatch')
 class AddBookView(CreateView):
     model = Book
     fields =['title', 'author', 'published_date',]
