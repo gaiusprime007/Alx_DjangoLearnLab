@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Book
+
 from .models import Library
 from django.views.generic import DetailView
+from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView
+from django.views.generic.edit import DeleteView
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
@@ -12,6 +16,8 @@ from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import permission_required
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 def book_list(request):
@@ -19,8 +25,28 @@ def book_list(request):
     return render(request, 'relationship_app/list_books.html', {'books': books})
 
 
-# def test_view(request):
-#     return HttpResponse("Test URL is working!")
+
+## RESTRICTIONS SETTINGS
+@method_decorator(permission_required('relationship_app.add_book', raise_exception=True), name='dispatch')
+class AddBookView(CreateView):
+    model = Book
+    fields =['title', 'author', 'published_date',]
+    template_name = 'relationship_app/add_book.html'
+    success_url = reverse_lazy('book_list')
+
+@method_decorator(permission_required('relationship_app.can_change_book', raise_exception=True), name='dispatch')
+class EditBookView(UpdateView):
+    model = Book
+    fields = ['title', 'author', 'published_date']
+    template_name = 'relationship_app/edit_book.html'
+    success_url = reverse_lazy('book_list')
+
+
+@method_decorator(permission_required('relationship_app.can_delete_book', raise_exception=True), name='dispatch')
+class DeleteBookView(DeleteView):
+    model = Book
+    template_name = 'relationship_app/delete_book.html'
+    success_url = reverse_lazy('book_list')
 
 
 class LibraryDetailView(DetailView):
@@ -31,7 +57,6 @@ class LibraryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context =super().get_context_data(**kwargs)
         return context
-    
 
 
     # AUTHENTICATION AND AUTHORIZATION
@@ -73,11 +98,13 @@ class LoginView(LoginView):
         messages.error(self.request, 'Invalid username or password')
         return super().form_invalid(form)
 
-        
+
 class LogoutView(LogoutView):
     template_name = 'relationship_app/logout.html'
     reverse_lazy = 'login'
 
     def dispatch(self, request, *args, **kwargs):
         messages.success(request, 'You have been logged out successfully.')
-        return super().dispatch(request, *args, **kwargs)    
+        return super().dispatch(request, *args, **kwargs)
+
+
