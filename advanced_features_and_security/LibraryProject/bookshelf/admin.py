@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Book, CustomUser
 
 # Register your models here.
+
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     #fields to display in the list view
@@ -9,7 +10,7 @@ class BookAdmin(admin.ModelAdmin):
     list_filter = ('author', 'publication_year')
     search_fields = ('title', 'author')
 
-@admin.register(CustomUser)
+
 class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('username', 'email', 'date_of_birth', 'is_staff', 'is_active')
     search_fields = ('username', 'email')
@@ -23,6 +24,13 @@ class CustomUserAdmin(admin.ModelAdmin):
             
             'fields': ('date_of_birth', 'profile_photo')}
         ),
+        
     )
     
-    # The models are already registered using the @admin.register decorator above.
+    search_fields = ('username', 'email')
+    ordering = ('username',)
+    
+admin.site.register(CustomUser, CustomUserAdmin)
+    
+    # The models are already registered using the @admin.register decorator above.ad
+   
