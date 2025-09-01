@@ -23,7 +23,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-db#ea(p)7k#hp9*2fvk%ij^8a&t+7sj+1rz@@bssyy5kydz%f#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+SECURE_BROWSER_XXS_FILTER = True  # Present XSS attacks
+SECURE_CONTENT_TYPE_NOSNIFF = True # Prevent the browser from guessing the content type
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
+SECURE_SSL_REDIRECT = True  # Redirect all non-HTTPS requests to HTTPS
+SECURE_HTTPS_HSTS_SECONDS = 31536000  # Enforce HTTPS for one year
+SECURE_HTTPS_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HTTPS_HSTS_PRELOAD = True  # Allow site to be included in browsers
+
+#Cookie Security
+SESSION_COOKIE_SECURE = True  # Ensures cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True  # Ensures CSRF cookies are only sent over HTTPS
+
+
+
+
+
 
 ALLOWED_HOSTS = []
 
@@ -130,3 +147,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/relationship/'
 LOGOUT_REDIRECT_URL = '/relationship/login/'
+
