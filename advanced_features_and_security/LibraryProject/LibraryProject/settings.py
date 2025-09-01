@@ -29,8 +29,8 @@ SECURE_BROWSER_XXS_FILTER = True  # Present XSS attacks
 SECURE_CONTENT_TYPE_NOSNIFF = True # Prevent the browser from guessing the content type
 X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
 SECURE_SSL_REDIRECT = True  # Redirect all non-HTTPS requests to HTTPS
-SECURE_HTTPS_HSTS_SECONDS = 31536000  # Enforce HTTPS for one year
-SECURE_HTTPS_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_SECONDS = 31536000  # Enforce HTTPS for one year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
 SECURE_HTTPS_HSTS_PRELOAD = True  # Allow site to be included in browsers
 
 #Cookie Security
