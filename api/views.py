@@ -1,8 +1,15 @@
 from django.shortcuts import render
 from api import serializers
 from .models import Book
+<<<<<<< HEAD
 from rest_framework import generics
 from rest_framework import permissions
+=======
+from .filters import BookFilter
+from rest_framework import generics
+from rest_framework import permissions
+from django_filters.rest_framework import DjangoFilterBackend
+>>>>>>> 3075d5ac715584fe742af3d1e5e20188a4182b16
 
 # Create your views here.
 
@@ -11,6 +18,12 @@ class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = serializers.BookSerializer
     permission_classes = [permissions.AllowAny]
+<<<<<<< HEAD
+=======
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = BookFilter
+    search_fields = ['title', 'author']
+>>>>>>> 3075d5ac715584fe742af3d1e5e20188a4182b16
 
 #view to retrieve a specific book by its ID
 class BookDetailView(generics.RetrieveAPIView):
