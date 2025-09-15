@@ -1,0 +1,13 @@
+<!-- l.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Librarian Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ request.user.username }}</h1>
+    <h2>Librarian Dashboard</h2>
+    <p>You can manage books, members, and other library resources here.</p>
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
