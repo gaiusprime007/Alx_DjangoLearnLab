@@ -39,7 +39,7 @@ REST_FRAMEWORK = {
         ],
 }
 
->>>>>>> 3075d5ac715584fe742af3d1e5e20188a4182b16
+>>>>>>> 77bd30d4b0fbae909c372c6ad3f98a96820c6f30
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,7 +53,7 @@ INSTALLED_APPS = [
 =======
     'api',
     'django_filters',
->>>>>>> 3075d5ac715584fe742af3d1e5e20188a4182b16
+>>>>>>> 77bd30d4b0fbae909c372c6ad3f98a96820c6f30
 ]
 
 MIDDLEWARE = [

@@ -9,7 +9,7 @@ from .filters import BookFilter
 from rest_framework import generics
 from rest_framework import permissions
 from django_filters.rest_framework import DjangoFilterBackend
->>>>>>> 3075d5ac715584fe742af3d1e5e20188a4182b16
+>>>>>>> 77bd30d4b0fbae909c372c6ad3f98a96820c6f30
 
 # Create your views here.
 
@@ -23,7 +23,7 @@ class BookListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_class = BookFilter
     search_fields = ['title', 'author']
->>>>>>> 3075d5ac715584fe742af3d1e5e20188a4182b16
+>>>>>>> 77bd30d4b0fbae909c372c6ad3f98a96820c6f30
 
 #view to retrieve a specific book by its ID
 class BookDetailView(generics.RetrieveAPIView):

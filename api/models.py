@@ -2,7 +2,7 @@ from django.db import models
 <<<<<<< HEAD
 =======
 import django_filters
->>>>>>> 3075d5ac715584fe742af3d1e5e20188a4182b16
+>>>>>>> 77bd30d4b0fbae909c372c6ad3f98a96820c6f30
 
 # Create your models here.
 #PARENT MODEL
@@ -29,4 +29,4 @@ class BookFilter(django_filters.FilterSet):
         model = Book
         fields = ['publication_year']
     
->>>>>>> 3075d5ac715584fe742af3d1e5e20188a4182b16
+>>>>>>> 77bd30d4b0fbae909c372c6ad3f98a96820c6f30
