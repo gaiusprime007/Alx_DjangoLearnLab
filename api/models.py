@@ -1,8 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
-=======
 import django_filters
->>>>>>> 3075d5ac715584fe742af3d1e5e20188a4182b16
 
 # Create your models here.
 #PARENT MODEL
@@ -14,9 +11,6 @@ class Author(models.Model):
 class Book(models.Model):
     title=models.CharField(max_length=100)  #title of the book
     publication_year=models.IntegerField() #publication year of the book
-<<<<<<< HEAD
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='author') #author of the book --> ForeignKey to Author model
-=======
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='author') #author of the book --> ForeignKey to Author model
 
 #Filter
@@ -29,4 +23,3 @@ class BookFilter(django_filters.FilterSet):
         model = Book
         fields = ['publication_year']
     
->>>>>>> 3075d5ac715584fe742af3d1e5e20188a4182b16
